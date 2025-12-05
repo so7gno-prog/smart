@@ -780,7 +780,16 @@
             paper.style.padding = "0px 0px 0px 0px"; // small internal padding for visual breathing room
             paper.style.boxSizing = 'border-box';
 
-            const pageTitle = `${titleBase}${titleBase.trim() !== '' ? ' ' : ''}${pIndex + 1}`;
+            let pageTitle = '';
+            if (pages === 1) {
+              const d = new Date();
+              const yyyy = d.getFullYear();
+              const mm = String(d.getMonth() + 1).padStart(2, '0');
+              const dd = String(d.getDate()).padStart(2, '0');
+              pageTitle = `${titleBase}${titleBase.trim() !== '' ? ' ' : ''}${mm}.${dd}`;
+            } else {
+              pageTitle = `${titleBase}${titleBase.trim() !== '' ? ' ' : ''}${pIndex + 1}`;
+            }
             const titleEl = document.createElement('div');
             titleEl.id = 'printTitle';
             titleEl.textContent = pageTitle;
