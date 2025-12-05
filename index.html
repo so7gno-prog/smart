@@ -777,7 +777,7 @@
             const perCol = Math.ceil(problems.length / columns);
             const paper = document.createElement('div');
             paper.id = 'printPaper';
-            paper.style.padding = "126px 0px 0px 0px"; // small internal padding for visual breathing room
+            paper.style.padding = "0px 0px 0px 0px"; // small internal padding for visual breathing room
             paper.style.boxSizing = 'border-box';
 
             const pageTitle = `${titleBase}${titleBase.trim() !== '' ? ' ' : ''}${pIndex + 1}`;
