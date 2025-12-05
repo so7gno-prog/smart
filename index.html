@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=0.7" />
   <title>小学数学题生成器（导出 PDF）</title>
   <style>
     :root {
@@ -233,694 +233,699 @@
 
     <div class="controls">
       <div class="three">
-      <div>
-        <label for="title">标题</label>
-        <input id="title" type="text" placeholder="例如：期末复习卷（2025）" value="口算大挑战" />
-      </div>
-
-      <div>
-        <label for="count">每页题目数量（1 - 100）</label>
-        <input id="count" type="number" min="1" max="100" value="100" />
-      </div>
-
-      <div>
-        <label for="columns">列数（页面展示平均分成列）</label>
-        <select id="columns">
-          <option value="4" selected>4 列</option>
-          <option value="3">3 列</option>
-          <option value="2">2 列</option>
-          <option value="1">1 列</option>
-        </select>
-      </div>
-
-      <div class="full">
-        <label>题型权重（加 / 减 / 乘 / 除） — 默认为 1:1:1:1，可编辑正整数</label>
-        <div class="weights">
-          <div class="weight-item">
-            <label>加 (+)</label>
-            <input id="w_plus" type="number" min="0" value="1" />
-          </div>
-          <div class="weight-item">
-            <label>减 (-)</label>
-            <input id="w_minus" type="number" min="0" value="1" />
-          </div>
-          <div class="weight-item">
-            <label>乘 (×)</label>
-            <input id="w_mul" type="number" min="0" value="1" />
-          </div>
-          <div class="weight-item">
-            <label>除 (÷)</label>
-            <input id="w_div" type="number" min="0" value="1" />
-          </div>
-        </div>
-      </div>
-      <div class="three">
         <div>
-          <!-- 默认勾选 -->
-          <label><input id="nineTable" type="checkbox" checked /> 乘除是否限制在九九乘法表范围（1–9）</label>
+          <label for="title">标题</label>
+          <input id="title" type="text" placeholder="例如：期末复习卷（2025）" value="口算大挑战" />
         </div>
 
         <div>
-          <label><input id="allowMixed" type="checkbox" /> 允许混合运算题型（含多运算）</label>
+          <label for="count">每页题目数量（1 - 100）</label>
+          <input id="count" type="number" min="1" max="100" value="100" />
         </div>
 
         <div>
-          <label><input id="allowParen" type="checkbox" /> 混合题中允许带括号（优先产生带括号的混合题）</label>
-        </div>
-      </div>
-      <div class="three">
-        <div>
-          <label>结果上限（限制计算结果不超过此值）</label>
-          <select id="limit_preset">
-            <option value="100" selected>100 以内</option>
-            <option value="20">20 以内</option>
-            <option value="custom">自定义</option>
+          <label for="columns">列数（页面展示平均分成列）</label>
+          <select id="columns">
+            <option value="4" selected>4 列</option>
+            <option value="3">3 列</option>
+            <option value="2">2 列</option>
+            <option value="1">1 列</option>
           </select>
         </div>
 
-        <div>
-          <label>自定义上限（1 - 1000）</label>
-          <input id="custom_limit" type="number" min="1" max="1000" value="100" />
+        <div class="full">
+          <label>题型权重（加 / 减 / 乘 / 除） — 默认为 1:1:1:1，可编辑正整数</label>
+          <div class="weights">
+            <div class="weight-item">
+              <label>加 (+)</label>
+              <input id="w_plus" type="number" min="0" value="1" />
+            </div>
+            <div class="weight-item">
+              <label>减 (-)</label>
+              <input id="w_minus" type="number" min="0" value="1" />
+            </div>
+            <div class="weight-item">
+              <label>乘 (×)</label>
+              <input id="w_mul" type="number" min="0" value="1" />
+            </div>
+            <div class="weight-item">
+              <label>除 (÷)</label>
+              <input id="w_div" type="number" min="0" value="1" />
+            </div>
+          </div>
+        </div>
+        <div class="three">
+          <div>
+            <!-- 默认勾选 -->
+            <label><input id="nineTable" type="checkbox" checked /> 乘除是否限制在九九乘法表范围（1–9）</label>
+          </div>
+
+          <div>
+            <label><input id="allowMixed" type="checkbox" /> 允许混合运算题型（含多运算）</label>
+          </div>
+
+          <div>
+            <label><input id="allowParen" type="checkbox" /> 混合题中允许带括号（优先产生带括号的混合题）</label>
+          </div>
+        </div>
+        <div class="three">
+          <div>
+            <label>结果上限（限制计算结果不超过此值）</label>
+            <select id="limit_preset">
+              <option value="100" selected>100 以内</option>
+              <option value="20">20 以内</option>
+              <option value="custom">自定义</option>
+            </select>
+          </div>
+
+          <div>
+            <label>自定义上限（1 - 1000）</label>
+            <input id="custom_limit" type="number" min="1" max="1000" value="100" />
+          </div>
+
+          <div>
+            <label for="pages">导出页数（每页为独立一套题，默认 4）</label>
+            <input id="pages" type="number" min="1" max="100" value="4" />
+          </div>
+        </div>
+        <div class="full">
+          <label>预览</label>
+          <div id="preview" class="preview">
+            <div id="problemsGrid" class="grid"></div>
+          </div>
         </div>
 
-        <div>
-          <label for="pages">导出页数（每页为独立一套题，默认 4）</label>
-          <input id="pages" type="number" min="1" max="100" value="4" />
+        <div class="full actions">
+          <button id="generateBtn">生成并预览</button>
+          <button id="exportBtn">导出 PDF（多页，每页独立一套）</button>
         </div>
-      </div>
-      <div class="full">
-        <label>预览</label>
-        <div id="preview" class="preview">
-          <div id="problemsGrid" class="grid"></div>
-        </div>
-      </div>
 
-      <div class="full actions">
-        <button id="generateBtn">生成并预览</button>
-        <button id="exportBtn">导出 PDF（多页，每页独立一套）</button>
-      </div>
-
-      <!-- <div class="full hint">
+        <!-- <div class="full hint">
         说明：导出时会根据“导出页数”生成多页 PDF（每页为一套新题），每页题目数量取上方“每页题目数量”；导出的每页内容会缩放以占据页面可打印区的 90%（宽高方向）；题目编号在每页标题与题目序号上实现跨页连续编号（示例：口算大挑战 1，题号会从1连续到 N*页数）。其它生成规则保持不变。
       </div> -->
+      </div>
+
+      <footer>生成器 - 适用于小学基础运算练习</footer>
     </div>
 
-    <footer>生成器 - 适用于小学基础运算练习</footer>
-  </div>
+    <!-- Hidden print area used for HTML->PDF rendering -->
+    <div id="printArea" style="display:none;"></div>
 
-  <!-- Hidden print area used for HTML->PDF rendering -->
-  <div id="printArea" style="display:none;"></div>
+    <!-- html2canvas + jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-  <!-- html2canvas + jsPDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+      (function () {
+        // helpers
+        function qs(id) { return document.getElementById(id); }
+        const previewGrid = qs('problemsGrid');
+        const titleInput = qs('title');
+        const countInput = qs('count');
+        const columnsSelect = qs('columns');
+        const wPlus = qs('w_plus');
+        const wMinus = qs('w_minus');
+        const wMul = qs('w_mul');
+        const wDiv = qs('w_div');
+        const limitPreset = qs('limit_preset');
+        const customLimit = qs('custom_limit');
+        const genBtn = qs('generateBtn');
+        const exportBtn = qs('exportBtn');
+        const allowMixed = qs('allowMixed');
+        const allowParen = qs('allowParen');
+        const nineTable = qs('nineTable');
+        const printArea = qs('printArea');
+        const pagesInput = qs('pages');
 
-  <script>
-    (function () {
-      // helpers
-      function qs(id) { return document.getElementById(id); }
-      const previewGrid = qs('problemsGrid');
-      const titleInput = qs('title');
-      const countInput = qs('count');
-      const columnsSelect = qs('columns');
-      const wPlus = qs('w_plus');
-      const wMinus = qs('w_minus');
-      const wMul = qs('w_mul');
-      const wDiv = qs('w_div');
-      const limitPreset = qs('limit_preset');
-      const customLimit = qs('custom_limit');
-      const genBtn = qs('generateBtn');
-      const exportBtn = qs('exportBtn');
-      const allowMixed = qs('allowMixed');
-      const allowParen = qs('allowParen');
-      const nineTable = qs('nineTable');
-      const printArea = qs('printArea');
-      const pagesInput = qs('pages');
-
-      function randInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        if (max < min) return min;
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
-
-      function weightedPick(weights) {
-        const total = weights.reduce((s, v) => s + v, 0);
-        if (total === 0) return null;
-        let r = Math.random() * total;
-        for (let i = 0; i < weights.length; i++) {
-          if (r < weights[i]) return i;
-          r -= weights[i];
+        function randInt(min, max) {
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          if (max < min) return min;
+          return Math.floor(Math.random() * (max - min + 1)) + min;
         }
-        return weights.length - 1;
-      }
 
-      // ensure chosen displayed numbers are not 0 or 1
-      const MIN_OPERAND = 2;
-
-      function clampMax(v, minV, maxV) {
-        if (v < minV) return minV;
-        if (v > maxV) return maxV;
-        return v;
-      }
-
-      // safe calc with constraints
-      function calc(a, op, b) {
-        if (op === '+') return { ok: true, val: a + b };
-        if (op === '-') {
-          if (a - b < 0) return { ok: false };
-          return { ok: true, val: a - b };
-        }
-        if (op === '×') return { ok: true, val: a * b };
-        if (op === '÷') {
-          if (b === 0) return { ok: false };
-          if (a % b !== 0) return { ok: false };
-          return { ok: true, val: a / b };
-        }
-        return { ok: false };
-      }
-
-      // Helper: pick divisor and quotient (and dividend) satisfying dividend = q * d <= limit
-      // When allowNine is true, constrain both q and d to 2..9.
-      // When allowNine is false, try to pick a diverse q and d by random trials:
-      function pickDivAndQuot(limit, allowNine) {
-        // ensure limit at least MIN_OPERAND * MIN_OPERAND
-        const minLimit = Math.max(limit, MIN_OPERAND * MIN_OPERAND);
-        if (allowNine) {
-          // pick d in [2,9], q in [2, min(9, floor(limit/d))]
-          const tries = 60;
-          for (let t = 0; t < tries; t++) {
-            const d = randInt(MIN_OPERAND, 9);
-            const qMax = Math.min(9, Math.floor(limit / d));
-            if (qMax >= MIN_OPERAND) {
-              const q = randInt(MIN_OPERAND, qMax);
-              return { dividend: q * d, divisor: d, quotient: q };
-            }
+        function weightedPick(weights) {
+          const total = weights.reduce((s, v) => s + v, 0);
+          if (total === 0) return null;
+          let r = Math.random() * total;
+          for (let i = 0; i < weights.length; i++) {
+            if (r < weights[i]) return i;
+            r -= weights[i];
           }
-          // fallback: return smallest valid (2 * 2)
-          return { dividend: 4, divisor: 2, quotient: 2 };
-        } else {
-          // Try to pick quotient and divisor with more variety.
-          // Strategy: try random quotient across a reasonable range and then pick a divisor that fits.
-          const maxQuotientPossible = Math.max(MIN_OPERAND, Math.floor(limit / MIN_OPERAND));
-          // To avoid always small divisors, try multiple attempts with random q first, then random d.
-          const tries = 200;
-          for (let t = 0; t < tries; t++) {
-            const q = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, Math.min(maxQuotientPossible, Math.floor(Math.max(2, Math.sqrt(limit)) * 2))));
-            const maxD = Math.floor(limit / q);
-            if (maxD >= MIN_OPERAND) {
-              // choose divisor with some bias towards larger values to diversify quotient/divisor combos
-              const d = randInt(MIN_OPERAND, maxD);
-              return { dividend: q * d, divisor: d, quotient: q };
-            }
-          }
-          // If random failed, do a systematic search for pairs with diverse q
-          const pairs = [];
-          for (let q = MIN_OPERAND; q <= maxQuotientPossible; q++) {
-            const maxD = Math.floor(limit / q);
-            for (let d = MIN_OPERAND; d <= maxD; d++) {
-              pairs.push({ dividend: q * d, divisor: d, quotient: q });
-            }
-          }
-          if (pairs.length > 0) {
-            return pairs[randInt(0, pairs.length - 1)];
-          }
-          // Final fallback: simple 2 * 2
-          return { dividend: 4, divisor: 2, quotient: 2 };
-        }
-      }
-
-      function generateSimple(opIndex, limit, allowNine) {
-        function pick(minAllowed, maxAllowed) {
-          const minA = Math.max(MIN_OPERAND, Math.ceil(minAllowed));
-          const maxA = Math.floor(maxAllowed);
-          if (maxA < minA) return minA;
-          return randInt(minA, maxA);
+          return weights.length - 1;
         }
 
-        if (opIndex === 0) { // addition a + b <= limit
-          const maxA = Math.max(MIN_OPERAND, limit - MIN_OPERAND);
-          const a = pick(MIN_OPERAND, maxA);
-          const bMax = Math.max(MIN_OPERAND, limit - a);
-          const b = pick(MIN_OPERAND, bMax);
-          return { text: `${a} + ${b} =`, op: '+' };
-        } else if (opIndex === 1) { // subtraction a - b >=0, result <= limit
-          const aMax = Math.max(MIN_OPERAND, limit);
-          const a = pick(MIN_OPERAND, aMax);
-          const b = pick(MIN_OPERAND, a);
-          const A = Math.max(a, b);
-          const B = Math.min(a, b);
-          return { text: `${A} - ${B} =`, op: '-' };
-        } else if (opIndex === 2) { // multiplication a * b <= limit
+        // ensure chosen displayed numbers are not 0 or 1
+        const MIN_OPERAND = 2;
+
+        function clampMax(v, minV, maxV) {
+          if (v < minV) return minV;
+          if (v > maxV) return maxV;
+          return v;
+        }
+
+        // safe calc with constraints
+        function calc(a, op, b) {
+          if (op === '+') return { ok: true, val: a + b };
+          if (op === '-') {
+            if (a - b < 0) return { ok: false };
+            return { ok: true, val: a - b };
+          }
+          if (op === '×') return { ok: true, val: a * b };
+          if (op === '÷') {
+            if (b === 0) return { ok: false };
+            if (a % b !== 0) return { ok: false };
+            return { ok: true, val: a / b };
+          }
+          return { ok: false };
+        }
+
+        // Helper: pick divisor and quotient (and dividend) satisfying dividend = q * d <= limit
+        // When allowNine is true, constrain both q and d to 2..9.
+        // When allowNine is false, try to pick a diverse q and d by random trials:
+        function pickDivAndQuot(limit, allowNine) {
+          // ensure limit at least MIN_OPERAND * MIN_OPERAND
+          const minLimit = Math.max(limit, MIN_OPERAND * MIN_OPERAND);
           if (allowNine) {
-            const a = randInt(MIN_OPERAND, 9);
-            const bMax = Math.max(MIN_OPERAND, Math.floor(limit / Math.max(1, a)));
-            const b = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, Math.min(9, bMax)));
-            return { text: `${a} × ${b} =`, op: '×' };
+            // pick d in [2,9], q in [2, min(9, floor(limit/d))]
+            const tries = 60;
+            for (let t = 0; t < tries; t++) {
+              const d = randInt(MIN_OPERAND, 9);
+              const qMax = Math.min(9, Math.floor(limit / d));
+              if (qMax >= MIN_OPERAND) {
+                const q = randInt(MIN_OPERAND, qMax);
+                return { dividend: q * d, divisor: d, quotient: q };
+              }
+            }
+            // fallback: return smallest valid (2 * 2)
+            return { dividend: 4, divisor: 2, quotient: 2 };
           } else {
-            const a = pick(MIN_OPERAND, Math.max(MIN_OPERAND, limit));
-            const bMax = Math.floor(limit / Math.max(1, a));
-            const b = pick(MIN_OPERAND, Math.max(MIN_OPERAND, bMax));
-            return { text: `${a} × ${b} =`, op: '×' };
-          }
-        } else { // division: ensure integer quotient and operands >= MIN_OPERAND
-          const { dividend, divisor } = pickDivAndQuot(limit, allowNine);
-          return { text: `${dividend} ÷ ${divisor} =`, op: '÷' };
-        }
-      }
-
-      // Mixed generation (same as before)
-      function generateMixed(limit, allowParen, allowNine) {
-        const opsList = ['+', '-', '×', '÷'];
-        for (let attempts = 0; attempts < 400; attempts++) {
-          const op1 = opsList[randInt(0, 3)];
-          const op2 = opsList[randInt(0, 3)];
-
-          // helper to pick number for op constraints, ensuring >= MIN_OPERAND
-          function pickFor(op) {
-            if (op === '×' || op === '÷') {
-              if (allowNine) {
-                return randInt(MIN_OPERAND, 9);
-              } else {
-                return randInt(MIN_OPERAND, Math.max(MIN_OPERAND, Math.min(12, Math.max(2, limit))));
+            // Try to pick quotient and divisor with more variety.
+            // Strategy: try random quotient across a reasonable range and then pick a divisor that fits.
+            const maxQuotientPossible = Math.max(MIN_OPERAND, Math.floor(limit / MIN_OPERAND));
+            // To avoid always small divisors, try multiple attempts with random q first, then random d.
+            const tries = 200;
+            for (let t = 0; t < tries; t++) {
+              const q = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, Math.min(maxQuotientPossible, Math.floor(Math.max(2, Math.sqrt(limit)) * 2))));
+              const maxD = Math.floor(limit / q);
+              if (maxD >= MIN_OPERAND) {
+                // choose divisor with some bias towards larger values to diversify quotient/divisor combos
+                const d = randInt(MIN_OPERAND, maxD);
+                return { dividend: q * d, divisor: d, quotient: q };
               }
-            } else {
-              return randInt(MIN_OPERAND, Math.max(MIN_OPERAND, limit));
             }
+            // If random failed, do a systematic search for pairs with diverse q
+            const pairs = [];
+            for (let q = MIN_OPERAND; q <= maxQuotientPossible; q++) {
+              const maxD = Math.floor(limit / q);
+              for (let d = MIN_OPERAND; d <= maxD; d++) {
+                pairs.push({ dividend: q * d, divisor: d, quotient: q });
+              }
+            }
+            if (pairs.length > 0) {
+              return pairs[randInt(0, pairs.length - 1)];
+            }
+            // Final fallback: simple 2 * 2
+            return { dividend: 4, divisor: 2, quotient: 2 };
+          }
+        }
+
+        function generateSimple(opIndex, limit, allowNine) {
+          function pick(minAllowed, maxAllowed) {
+            const minA = Math.max(MIN_OPERAND, Math.ceil(minAllowed));
+            const maxA = Math.floor(maxAllowed);
+            if (maxA < minA) return minA;
+            return randInt(minA, maxA);
           }
 
-          const a0 = pickFor(op1 === '÷' ? '×' : op1);
-          const b0 = pickFor(op1);
-          const c0 = pickFor(op2);
-
-          const tryPatterns = [];
-          if (allowParen) {
-            tryPatterns.push('L'); // (A op1 B) op2 C
-            tryPatterns.push('R'); // A op1 (B op2 C)
+          if (opIndex === 0) { // addition a + b <= limit
+            const maxA = Math.max(MIN_OPERAND, limit - MIN_OPERAND);
+            const a = pick(MIN_OPERAND, maxA);
+            const bMax = Math.max(MIN_OPERAND, limit - a);
+            const b = pick(MIN_OPERAND, bMax);
+            return { text: `${a} + ${b} =`, op: '+' };
+          } else if (opIndex === 1) { // subtraction a - b >=0, result <= limit
+            const aMax = Math.max(MIN_OPERAND, limit);
+            const a = pick(MIN_OPERAND, aMax);
+            const b = pick(MIN_OPERAND, a);
+            const A = Math.max(a, b);
+            const B = Math.min(a, b);
+            return { text: `${A} - ${B} =`, op: '-' };
+          } else if (opIndex === 2) { // multiplication a * b <= limit
+            if (allowNine) {
+              const a = randInt(MIN_OPERAND, 9);
+              const bMax = Math.max(MIN_OPERAND, Math.floor(limit / Math.max(1, a)));
+              const b = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, Math.min(9, bMax)));
+              return { text: `${a} × ${b} =`, op: '×' };
+            } else {
+              const a = pick(MIN_OPERAND, Math.max(MIN_OPERAND, limit));
+              const bMax = Math.floor(limit / Math.max(1, a));
+              const b = pick(MIN_OPERAND, Math.max(MIN_OPERAND, bMax));
+              return { text: `${a} × ${b} =`, op: '×' };
+            }
+          } else { // division: ensure integer quotient and operands >= MIN_OPERAND
+            const { dividend, divisor } = pickDivAndQuot(limit, allowNine);
+            return { text: `${dividend} ÷ ${divisor} =`, op: '÷' };
           }
-          tryPatterns.push('N'); // A op1 B op2 C (left-to-right)
+        }
 
-          for(const pat of tryPatterns){
-            let A=a0, B=b0, C=c0;
+        // Mixed generation (same as before)
+        function generateMixed(limit, allowParen, allowNine) {
+          const opsList = ['+', '-', '×', '÷'];
+          for (let attempts = 0; attempts < 400; attempts++) {
+            const op1 = opsList[randInt(0, 3)];
+            const op2 = opsList[randInt(0, 3)];
 
-            if (pat === 'L') {
-              // (A op1 B)
-              if(op1 === '÷'){
-                // pick dividend/divisor using helper to diversify quotient/divisor
-                const dqp = pickDivAndQuot(limit, allowNine);
-                A = dqp.dividend;
-                B = dqp.divisor;
-              } else if(op1 === '-'){
-                // ensure A-B >=0
-                const aCandidate = randInt(MIN_OPERAND, limit);
-                const bCandidate = randInt(MIN_OPERAND, aCandidate);
-                A = aCandidate; B = bCandidate;
-              } else if (op1 === '×') {
+            // helper to pick number for op constraints, ensuring >= MIN_OPERAND
+            function pickFor(op) {
+              if (op === '×' || op === '÷') {
                 if (allowNine) {
-                  A = randInt(MIN_OPERAND, 9); B = randInt(MIN_OPERAND, 9);
+                  return randInt(MIN_OPERAND, 9);
                 } else {
-                  A = randInt(MIN_OPERAND, Math.max(1, limit));
-                  const maxB = Math.floor(limit / A) || MIN_OPERAND;
-                  B = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, maxB));
+                  return randInt(MIN_OPERAND, Math.max(MIN_OPERAND, Math.min(12, Math.max(2, limit))));
                 }
               } else {
-                A = randInt(MIN_OPERAND, limit);
-                B = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, limit - A));
+                return randInt(MIN_OPERAND, Math.max(MIN_OPERAND, limit));
               }
+            }
 
-              const resL = calc(A, op1, B);
-              if(!resL.ok) continue;
+            const a0 = pickFor(op1 === '÷' ? '×' : op1);
+            const b0 = pickFor(op1);
+            const c0 = pickFor(op2);
 
-              // now apply op2 with C
-              if(op2 === '÷'){
-                const leftVal = resL.val;
-                if(leftVal < MIN_OPERAND) continue;
-                // pick a divisor of leftVal that respects nineTable if required
-                const divisors = [];
-                const maxD = Math.min(leftVal, allowNine ? 9 : leftVal);
-                for(let d=MIN_OPERAND; d<=maxD; d++){
-                  if(leftVal % d === 0) divisors.push(d);
-                }
-                if(divisors.length === 0) continue;
-                C = divisors[randInt(0, divisors.length-1)];
-              } else if(op2 === '-'){
-                const leftVal = resL.val;
-                if(leftVal < MIN_OPERAND) continue;
-                C = randInt(MIN_OPERAND, leftVal);
-              } else if (op2 === '×') {
-                if (allowNine) {
-                  C = randInt(MIN_OPERAND, 9);
-                } else {
-                  if (resL.val === 0) {
-                    C = randInt(MIN_OPERAND, limit);
+            const tryPatterns = [];
+            if (allowParen) {
+              tryPatterns.push('L'); // (A op1 B) op2 C
+              tryPatterns.push('R'); // A op1 (B op2 C)
+            }
+            tryPatterns.push('N'); // A op1 B op2 C (left-to-right)
+
+            for (const pat of tryPatterns) {
+              let A = a0, B = b0, C = c0;
+
+              if (pat === 'L') {
+                // (A op1 B)
+                if (op1 === '÷') {
+                  // pick dividend/divisor using helper to diversify quotient/divisor
+                  const dqp = pickDivAndQuot(limit, allowNine);
+                  A = dqp.dividend;
+                  B = dqp.divisor;
+                } else if (op1 === '-') {
+                  // ensure A-B >=0
+                  const aCandidate = randInt(MIN_OPERAND, limit);
+                  const bCandidate = randInt(MIN_OPERAND, aCandidate);
+                  A = aCandidate; B = bCandidate;
+                } else if (op1 === '×') {
+                  if (allowNine) {
+                    A = randInt(MIN_OPERAND, 9); B = randInt(MIN_OPERAND, 9);
                   } else {
-                    const maxC = Math.floor(limit / Math.max(1, Math.abs(resL.val)));
-                    if(maxC < MIN_OPERAND) continue;
-                    C = randInt(MIN_OPERAND, maxC);
+                    A = randInt(MIN_OPERAND, Math.max(1, limit));
+                    const maxB = Math.floor(limit / A) || MIN_OPERAND;
+                    B = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, maxB));
                   }
+                } else {
+                  A = randInt(MIN_OPERAND, limit);
+                  B = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, limit - A));
                 }
-              } else { // +
-                const maxC = Math.max(MIN_OPERAND, limit - resL.val);
-                C = randInt(MIN_OPERAND, maxC);
-              }
 
-              const resFinal = calc(resL.val, op2, C);
-              if(!resFinal.ok) continue;
-              if(resFinal.val > limit) continue;
+                const resL = calc(A, op1, B);
+                if (!resL.ok) continue;
 
-              return `（${A} ${op1} ${B}） ${op2} ${C} =`;
-
-            } else if (pat === 'R') {
-              // A op1 (B op2 C)
-              if(op2 === '÷'){
-                // create B and C via helper to diversify quotient
-                const dqp = pickDivAndQuot(limit, allowNine);
-                B = dqp.dividend;
-                C = dqp.divisor;
-              } else if(op2 === '-'){
-                B = randInt(MIN_OPERAND, limit);
-                C = randInt(MIN_OPERAND, B);
-              } else if(op2 === '×'){
-                if(allowNine){ B = randInt(MIN_OPERAND, 9); C = randInt(MIN_OPERAND, 9); }
-                else { B = randInt(MIN_OPERAND, limit); C = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, Math.floor(limit / Math.max(1, B || 1)))); }
-              } else { // +
-                B = randInt(MIN_OPERAND, limit);
-                C = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, limit - B));
-              }
-
-              const rightRes = calc(B, op2, C);
-              if(!rightRes.ok) continue;
-
-              // Now handle outer op1 with A
-              if(op1 === '÷'){
-                if(rightRes.val < MIN_OPERAND) continue;
-                // pick q so that A = q * rightRes.val <= limit; diversify q
-                const qMax = Math.floor(limit / Math.max(1, rightRes.val));
-                const qUpper = allowNine ? Math.min(qMax, 9) : qMax;
-                if(qUpper < MIN_OPERAND) continue;
-                const q = randInt(MIN_OPERAND, qUpper);
-                A = q * rightRes.val;
-              } else if(op1 === '-'){
-                A = randInt(Math.max(MIN_OPERAND, rightRes.val), Math.max(MIN_OPERAND, limit));
-              } else if(op1 === '×'){
-                if(allowNine) A = randInt(MIN_OPERAND, 9);
-                else A = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, limit));
-                if(rightRes.val !== 0){
-                  const maxA = Math.floor(limit / Math.max(1, Math.abs(rightRes.val)));
-                  if(maxA < MIN_OPERAND) continue;
-                  A = Math.min(A, maxA);
-                  if(A < MIN_OPERAND) continue;
+                // now apply op2 with C
+                if (op2 === '÷') {
+                  const leftVal = resL.val;
+                  if (leftVal < MIN_OPERAND) continue;
+                  // pick a divisor of leftVal that respects nineTable if required
+                  const divisors = [];
+                  const maxD = Math.min(leftVal, allowNine ? 9 : leftVal);
+                  for (let d = MIN_OPERAND; d <= maxD; d++) {
+                    if (leftVal % d === 0) divisors.push(d);
+                  }
+                  if (divisors.length === 0) continue;
+                  C = divisors[randInt(0, divisors.length - 1)];
+                } else if (op2 === '-') {
+                  const leftVal = resL.val;
+                  if (leftVal < MIN_OPERAND) continue;
+                  C = randInt(MIN_OPERAND, leftVal);
+                } else if (op2 === '×') {
+                  if (allowNine) {
+                    C = randInt(MIN_OPERAND, 9);
+                  } else {
+                    if (resL.val === 0) {
+                      C = randInt(MIN_OPERAND, limit);
+                    } else {
+                      const maxC = Math.floor(limit / Math.max(1, Math.abs(resL.val)));
+                      if (maxC < MIN_OPERAND) continue;
+                      C = randInt(MIN_OPERAND, maxC);
+                    }
+                  }
+                } else { // +
+                  const maxC = Math.max(MIN_OPERAND, limit - resL.val);
+                  C = randInt(MIN_OPERAND, maxC);
                 }
-              } else { // +
-                const maxA = Math.max(MIN_OPERAND, limit - rightRes.val);
-                A = randInt(MIN_OPERAND, maxA);
-              }
 
-              const finalRes = calc(A, op1, rightRes.val);
-              if(!finalRes.ok) continue;
-              if(finalRes.val > limit) continue;
+                const resFinal = calc(resL.val, op2, C);
+                if (!resFinal.ok) continue;
+                if (resFinal.val > limit) continue;
 
-              return `${A} ${op1} （${B} ${op2} ${C}） =`;
-            } else {
-              // No parentheses: evaluate left-to-right ((A op1 B) op2 C)
-              if(op1 === '÷'){
-                const dqp = pickDivAndQuot(limit, allowNine);
-                A = dqp.dividend;
-                B = dqp.divisor;
-              } else if(op1 === '-'){
-                const aCandidate = randInt(MIN_OPERAND, limit);
-                const bCandidate = randInt(MIN_OPERAND, aCandidate);
-                A = aCandidate; B = bCandidate;
-              } else if(op1 === '×'){
-                if(allowNine){ A = randInt(MIN_OPERAND,9); B = randInt(MIN_OPERAND,9); }
-                else { A = randInt(MIN_OPERAND,Math.max(MIN_OPERAND,limit)); B = randInt(MIN_OPERAND,Math.max(MIN_OPERAND,Math.floor(limit/Math.max(1,A||1)))); }
-              } else { // +
-                A = randInt(MIN_OPERAND, limit);
-                B = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, limit - A));
-              }
+                return `（${A} ${op1} ${B}） ${op2} ${C} =`;
 
-              const leftRes = calc(A, op1, B);
-              if (!leftRes.ok) continue;
-
-              // Now op2 with C
-              if (op2 === '÷') {
-                const leftVal = leftRes.val;
-                if (leftVal < MIN_OPERAND) continue;
-                const divisors = [];
-                const maxD = Math.min(leftVal, allowNine ? 9 : leftVal);
-                for(let d=MIN_OPERAND; d<=maxD; d++){
-                  if(leftVal % d === 0) divisors.push(d);
+              } else if (pat === 'R') {
+                // A op1 (B op2 C)
+                if (op2 === '÷') {
+                  // create B and C via helper to diversify quotient
+                  const dqp = pickDivAndQuot(limit, allowNine);
+                  B = dqp.dividend;
+                  C = dqp.divisor;
+                } else if (op2 === '-') {
+                  B = randInt(MIN_OPERAND, limit);
+                  C = randInt(MIN_OPERAND, B);
+                } else if (op2 === '×') {
+                  if (allowNine) { B = randInt(MIN_OPERAND, 9); C = randInt(MIN_OPERAND, 9); }
+                  else { B = randInt(MIN_OPERAND, limit); C = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, Math.floor(limit / Math.max(1, B || 1)))); }
+                } else { // +
+                  B = randInt(MIN_OPERAND, limit);
+                  C = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, limit - B));
                 }
-                if(divisors.length === 0) continue;
-                C = divisors[randInt(0, divisors.length-1)];
-              } else if(op2 === '-'){
-                const maxC = leftRes.val;
-                if(maxC < MIN_OPERAND) continue;
-                C = randInt(MIN_OPERAND, maxC);
-              } else if(op2 === '×'){
-                if(allowNine) C = randInt(MIN_OPERAND,9);
-                else {
-                  if (leftRes.val === 0) C = MIN_OPERAND;
+
+                const rightRes = calc(B, op2, C);
+                if (!rightRes.ok) continue;
+
+                // Now handle outer op1 with A
+                if (op1 === '÷') {
+                  if (rightRes.val < MIN_OPERAND) continue;
+                  // pick q so that A = q * rightRes.val <= limit; diversify q
+                  const qMax = Math.floor(limit / Math.max(1, rightRes.val));
+                  const qUpper = allowNine ? Math.min(qMax, 9) : qMax;
+                  if (qUpper < MIN_OPERAND) continue;
+                  const q = randInt(MIN_OPERAND, qUpper);
+                  A = q * rightRes.val;
+                } else if (op1 === '-') {
+                  A = randInt(Math.max(MIN_OPERAND, rightRes.val), Math.max(MIN_OPERAND, limit));
+                } else if (op1 === '×') {
+                  if (allowNine) A = randInt(MIN_OPERAND, 9);
+                  else A = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, limit));
+                  if (rightRes.val !== 0) {
+                    const maxA = Math.floor(limit / Math.max(1, Math.abs(rightRes.val)));
+                    if (maxA < MIN_OPERAND) continue;
+                    A = Math.min(A, maxA);
+                    if (A < MIN_OPERAND) continue;
+                  }
+                } else { // +
+                  const maxA = Math.max(MIN_OPERAND, limit - rightRes.val);
+                  A = randInt(MIN_OPERAND, maxA);
+                }
+
+                const finalRes = calc(A, op1, rightRes.val);
+                if (!finalRes.ok) continue;
+                if (finalRes.val > limit) continue;
+
+                return `${A} ${op1} （${B} ${op2} ${C}） =`;
+              } else {
+                // No parentheses: evaluate left-to-right ((A op1 B) op2 C)
+                if (op1 === '÷') {
+                  const dqp = pickDivAndQuot(limit, allowNine);
+                  A = dqp.dividend;
+                  B = dqp.divisor;
+                } else if (op1 === '-') {
+                  const aCandidate = randInt(MIN_OPERAND, limit);
+                  const bCandidate = randInt(MIN_OPERAND, aCandidate);
+                  A = aCandidate; B = bCandidate;
+                } else if (op1 === '×') {
+                  if (allowNine) { A = randInt(MIN_OPERAND, 9); B = randInt(MIN_OPERAND, 9); }
+                  else { A = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, limit)); B = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, Math.floor(limit / Math.max(1, A || 1)))); }
+                } else { // +
+                  A = randInt(MIN_OPERAND, limit);
+                  B = randInt(MIN_OPERAND, Math.max(MIN_OPERAND, limit - A));
+                }
+
+                const leftRes = calc(A, op1, B);
+                if (!leftRes.ok) continue;
+
+                // Now op2 with C
+                if (op2 === '÷') {
+                  const leftVal = leftRes.val;
+                  if (leftVal < MIN_OPERAND) continue;
+                  const divisors = [];
+                  const maxD = Math.min(leftVal, allowNine ? 9 : leftVal);
+                  for (let d = MIN_OPERAND; d <= maxD; d++) {
+                    if (leftVal % d === 0) divisors.push(d);
+                  }
+                  if (divisors.length === 0) continue;
+                  C = divisors[randInt(0, divisors.length - 1)];
+                } else if (op2 === '-') {
+                  const maxC = leftRes.val;
+                  if (maxC < MIN_OPERAND) continue;
+                  C = randInt(MIN_OPERAND, maxC);
+                } else if (op2 === '×') {
+                  if (allowNine) C = randInt(MIN_OPERAND, 9);
                   else {
-                    const maxC = Math.floor(limit / Math.max(1, Math.abs(leftRes.val)));
-                    if(maxC < MIN_OPERAND) continue;
-                    C = randInt(MIN_OPERAND, maxC);
+                    if (leftRes.val === 0) C = MIN_OPERAND;
+                    else {
+                      const maxC = Math.floor(limit / Math.max(1, Math.abs(leftRes.val)));
+                      if (maxC < MIN_OPERAND) continue;
+                      C = randInt(MIN_OPERAND, maxC);
+                    }
                   }
+                } else { // +
+                  const maxC = Math.max(MIN_OPERAND, limit - leftRes.val);
+                  if (maxC < MIN_OPERAND) continue;
+                  C = randInt(MIN_OPERAND, maxC);
                 }
-              } else { // +
-                const maxC = Math.max(MIN_OPERAND, limit - leftRes.val);
-                if(maxC < MIN_OPERAND) continue;
-                C = randInt(MIN_OPERAND, maxC);
+
+                const finalRes = calc(leftRes.val, op2, C);
+                if (!finalRes.ok) continue;
+                if (finalRes.val > limit) continue;
+
+                return `${A} ${op1} ${B} ${op2} ${C} =`;
               }
+            } // end pat loop
+          } // end attempts
+          // fallback: simple addition with operands >= MIN_OPERAND
+          return generateSimple(0, limit, allowNine).text;
+        }
 
-              const finalRes = calc(leftRes.val, op2, C);
-              if (!finalRes.ok) continue;
-              if (finalRes.val > limit) continue;
-
-              return `${A} ${op1} ${B} ${op2} ${C} =`;
+        function generateProblems(count, weights, limit, opts) {
+          const problems = [];
+          const w = weights.map(v => Math.max(0, Math.floor(v)));
+          if (w.reduce((s, x) => s + x, 0) === 0) {
+            w[0] = w[1] = w[2] = w[3] = 1;
+          }
+          for (let i = 0; i < count; i++) {
+            let isMixed = false;
+            if (opts.allowMixed) {
+              isMixed = Math.random() < 0.30;
             }
-          } // end pat loop
-        } // end attempts
-        // fallback: simple addition with operands >= MIN_OPERAND
-        return generateSimple(0, limit, allowNine).text;
-      }
-
-      function generateProblems(count, weights, limit, opts) {
-        const problems = [];
-        const w = weights.map(v => Math.max(0, Math.floor(v)));
-        if (w.reduce((s, x) => s + x, 0) === 0) {
-          w[0] = w[1] = w[2] = w[3] = 1;
-        }
-        for (let i = 0; i < count; i++) {
-          let isMixed = false;
-          if (opts.allowMixed) {
-            isMixed = Math.random() < 0.30;
+            if (isMixed) {
+              problems.push(generateMixed(limit, opts.allowParen, opts.nineTable));
+              continue;
+            }
+            const op = weightedPick(w);
+            const p = generateSimple(op, limit, opts.nineTable);
+            problems.push(p.text);
           }
-          if (isMixed) {
-            problems.push(generateMixed(limit, opts.allowParen, opts.nineTable));
-            continue;
-          }
-          const op = weightedPick(w);
-          const p = generateSimple(op, limit, opts.nineTable);
-          problems.push(p.text);
+          return problems;
         }
-        return problems;
-      }
 
-      // Render preview in HTML grid
-      function renderPreview(problems, columns) {
-        previewGrid.innerHTML = '';
-        const cols = Math.max(1, Math.min(4, columns | 0));
-        previewGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-        const perCol = Math.ceil(problems.length / cols);
-        for (let c = 0; c < cols; c++) {
-          const colDiv = document.createElement('div');
-          colDiv.className = 'col';
-          const start = c * perCol;
-          const end = Math.min(start + perCol, problems.length);
-          for (let i = start; i < end; i++) {
-            const p = document.createElement('div');
-            p.className = 'problem';
-            const circ = document.createElement('span');
-            circ.className = 'circled-number';
-            circ.textContent = (i + 1);
-            const spanText = document.createElement('span');
-            spanText.innerText = problems[i];
-            p.appendChild(circ);
-            p.appendChild(spanText);
-            colDiv.appendChild(p);
-          }
-          previewGrid.appendChild(colDiv);
-        }
-      }
-
-      // Export: generate multiple pages, each page is a fresh set of problems (count per page).
-      // Each page image is scaled to fill 90% of printable area (pdfW/pdfH * 0.9).
-      // Additionally, title on each page will include page index: e.g. "口算大挑战 1"
-      // Problem numbering across pages is continuous.
-      async function exportPDFMulti(titleBase, countPerPage, columns, weights, limit, opts, pages) {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-        const pageW = doc.internal.pageSize.getWidth();
-        const pageH = doc.internal.pageSize.getHeight();
-        const margin = 22; // mm
-        const pdfW = pageW - margin * 2;
-        const pdfH = pageH - margin * 2;
-        const targetW_mm = pdfW * 1.2; // want content to occupy 90% of printable width
-        const targetH_mm = pdfH * 1.5; // and height
-        const cssPxPerMm = 96 / 25.4; // CSS px per mm (assumption: 96dpi)
-
-        for (let pIndex = 0; pIndex < pages; pIndex++) {
-          // generate fresh problems for this page
-          const problems = generateProblems(countPerPage, weights, limit, opts);
-          // build HTML
-          const perCol = Math.ceil(problems.length / columns);
-          const paper = document.createElement('div');
-          paper.id = 'printPaper';
-          paper.style.padding = "0px 0px 0px 0px"; // small internal padding for visual breathing room
-          paper.style.boxSizing = 'border-box';
-
-          const pageTitle = `${titleBase}${titleBase.trim() !== '' ? ' ' : ''}${pIndex + 1}`;
-          const titleEl = document.createElement('div');
-          titleEl.id = 'printTitle';
-          titleEl.textContent = pageTitle;
-          paper.appendChild(titleEl);
-
-          const grid = document.createElement('div');
-          grid.className = 'printGrid';
-          grid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-
-          for (let c = 0; c < columns; c++) {
-            const col = document.createElement('div');
-            col.className = 'printCol';
+        // Render preview in HTML grid
+        function renderPreview(problems, columns) {
+          previewGrid.innerHTML = '';
+          const cols = Math.max(1, Math.min(4, columns | 0));
+          previewGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+          const perCol = Math.ceil(problems.length / cols);
+          for (let c = 0; c < cols; c++) {
+            const colDiv = document.createElement('div');
+            colDiv.className = 'col';
             const start = c * perCol;
             const end = Math.min(start + perCol, problems.length);
             for (let i = start; i < end; i++) {
-              const globalIndex = pIndex * countPerPage + i + 1; // continuous across pages
               const p = document.createElement('div');
-              p.className = 'printProblem';
+              p.className = 'problem';
               const circ = document.createElement('span');
-              circ.className = 'printCircled';
-              circ.textContent = globalIndex;
-              const txtSpan = document.createElement('span');
-              txtSpan.textContent = problems[i];
+              circ.className = 'circled-number';
+              circ.textContent = (i + 1);
+              const spanText = document.createElement('span');
+              spanText.innerText = problems[i];
               p.appendChild(circ);
-              p.appendChild(txtSpan);
-              col.appendChild(p);
+              p.appendChild(spanText);
+              colDiv.appendChild(p);
             }
-            grid.appendChild(col);
+            previewGrid.appendChild(colDiv);
           }
-          paper.appendChild(grid);
+        }
 
-          // attach, set printArea width in CSS px so html2canvas renders at desired aspect
-          printArea.innerHTML = '';
-          // set printArea width to targetW_mm in CSS px
-          const targetW_px = Math.round(targetW_mm * cssPxPerMm);
-          printArea.style.display = 'block';
-          printArea.style.width = targetW_px + 'px';
-          printArea.style.padding = "0px 0px 0px 0px";
-          printArea.style.background = '#ffffff';
-          printArea.appendChild(paper);
+        // Export: generate multiple pages, each page is a fresh set of problems (count per page).
+        // Each page image is scaled to fill 90% of printable area (pdfW/pdfH * 0.9).
+        // Additionally, title on each page will include page index: e.g. "口算大挑战 1"
+        // Problem numbering across pages is continuous.
+        async function exportPDFMulti(titleBase, countPerPage, columns, weights, limit, opts, pages) {
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+          const pageW = doc.internal.pageSize.getWidth();
+          const pageH = doc.internal.pageSize.getHeight();
+          const margin = 22; // mm
+          const pdfW = pageW - margin * 2;
+          const pdfH = pageH - margin * 2;
+          const targetW_mm = pdfW * 1.2; // want content to occupy 90% of printable width
+          const targetH_mm = pdfH * 1.5; // and height
+          const cssPxPerMm = 96 / 25.4; // CSS px per mm (assumption: 96dpi)
 
-          // allow DOM/CSS to apply
-          await new Promise(r => setTimeout(r, 80));
+          for (let pIndex = 0; pIndex < pages; pIndex++) {
+            // generate fresh problems for this page
+            const problems = generateProblems(countPerPage, weights, limit, opts);
+            // build HTML
+            const perCol = Math.ceil(problems.length / columns);
+            const paper = document.createElement('div');
+            paper.id = 'printPaper';
+            paper.style.padding = "126px 0px 0px 0px"; // small internal padding for visual breathing room
+            paper.style.boxSizing = 'border-box';
 
-          // html2canvas scale: use devicePixelRatio for quality, clamp to reasonable max
-          const scale = Math.min(3, Math.max(1, window.devicePixelRatio || 1) * 1.6);
-          const canvas = await html2canvas(printArea, {
-            scale: scale,
-            useCORS: true,
-            backgroundColor: '#ffffff'
-          });
+            const pageTitle = `${titleBase}${titleBase.trim() !== '' ? ' ' : ''}${pIndex + 1}`;
+            const titleEl = document.createElement('div');
+            titleEl.id = 'printTitle';
+            titleEl.textContent = pageTitle;
+            paper.appendChild(titleEl);
 
-          const imgData = canvas.toDataURL('image/png');
+            const grid = document.createElement('div');
+            grid.className = 'printGrid';
+            grid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
 
-          // compute image size in mm to fit within targetW_mm x targetH_mm while filling the target as much as possible
-          const imgWpx = canvas.width;
-          const imgHpx = canvas.height;
-          // since printArea width was set to targetW_px, the image width should correspond; compute mm accordingly
-          // convert px back to mm: mm = px / cssPxPerMm / scaleFactorAdjustment
-          // But easier: compute aspect and set width to targetW_mm and height by aspect
-          let imgWidthMM = targetW_mm;
-          let imgHeightMM = (imgHpx / imgWpx) * imgWidthMM;
-          if (imgHeightMM > targetH_mm) {
-            imgHeightMM = targetH_mm;
-            imgWidthMM = (imgWpx / imgHpx) * imgHeightMM;
+            for (let c = 0; c < columns; c++) {
+              const col = document.createElement('div');
+              col.className = 'printCol';
+              const start = c * perCol;
+              const end = Math.min(start + perCol, problems.length);
+              for (let i = start; i < end; i++) {
+                const globalIndex = pIndex * countPerPage + i + 1; // continuous across pages
+                const p = document.createElement('div');
+                p.className = 'printProblem';
+                const circ = document.createElement('span');
+                circ.className = 'printCircled';
+                circ.textContent = globalIndex;
+                const txtSpan = document.createElement('span');
+                txtSpan.textContent = problems[i];
+                p.appendChild(circ);
+                p.appendChild(txtSpan);
+                col.appendChild(p);
+              }
+              grid.appendChild(col);
+            }
+            paper.appendChild(grid);
+
+            // attach, set printArea width in CSS px so html2canvas renders at desired aspect
+            printArea.innerHTML = '';
+            // set printArea width to targetW_mm in CSS px
+            const targetW_px = Math.round(targetW_mm * cssPxPerMm);
+            printArea.style.display = 'block';
+            printArea.style.width = targetW_px + 'px';
+            printArea.style.padding = "0px 0px 0px 0px";
+            printArea.style.background = '#ffffff';
+            printArea.appendChild(paper);
+
+            // allow DOM/CSS to apply
+            await new Promise(r => setTimeout(r, 80));
+
+            // html2canvas scale: use devicePixelRatio for quality, clamp to reasonable max
+            const scale = Math.min(3, Math.max(1, window.devicePixelRatio || 1) * 1.6);
+            const canvas = await html2canvas(printArea, {
+              scale: scale,
+              useCORS: true,
+              backgroundColor: '#ffffff'
+            });
+
+            const imgData = canvas.toDataURL('image/png');
+
+            // compute image size in mm to fit within targetW_mm x targetH_mm while filling the target as much as possible
+            const imgWpx = canvas.width;
+            const imgHpx = canvas.height;
+            // since printArea width was set to targetW_px, the image width should correspond; compute mm accordingly
+            // convert px back to mm: mm = px / cssPxPerMm / scaleFactorAdjustment
+            // But easier: compute aspect and set width to targetW_mm and height by aspect
+            let imgWidthMM = targetW_mm;
+            let imgHeightMM = (imgHpx / imgWpx) * imgWidthMM;
+            if (imgHeightMM > targetH_mm) {
+              imgHeightMM = targetH_mm;
+              imgWidthMM = (imgWpx / imgHpx) * imgHeightMM;
+            }
+
+            const x = (pageW - imgWidthMM) / 2;
+            const y = (pageH - imgHeightMM) / 2;
+
+            if (pIndex > 0) doc.addPage();
+            doc.addImage(imgData, 'PNG', x, y, imgWidthMM, imgHeightMM, undefined, 'FAST');
+
+            // cleanup
+            printArea.innerHTML = '';
+            printArea.style.display = 'none';
+            printArea.style.width = '';
           }
 
-          const x = (pageW - imgWidthMM) / 2;
-          const y = (pageH - imgHeightMM) / 2;
-
-          if (pIndex > 0) doc.addPage();
-          doc.addImage(imgData, 'PNG', x, y, imgWidthMM, imgHeightMM, undefined, 'FAST');
-
-          // cleanup
-          printArea.innerHTML = '';
-          printArea.style.display = 'none';
-          printArea.style.width = '';
+          const fileName = (titleBase || '练习题') + '.pdf';
+          doc.save(fileName);
         }
 
-        const fileName = (titleBase || '练习题') + '.pdf';
-        doc.save(fileName);
-      }
-
-      // gather params and preview single page using current params (preview uses count per page)
-      function gatherParamsAndGenerate(showPreview = true) {
-        const countPerPage = Math.max(1, Math.min(100, parseInt(countInput.value) || 100));
-        countInput.value = countPerPage;
-        const weights = [
-          Math.max(0, parseInt(wPlus.value) || 0),
-          Math.max(0, parseInt(wMinus.value) || 0),
-          Math.max(0, parseInt(wMul.value) || 0),
-          Math.max(0, parseInt(wDiv.value) || 0)
-        ];
-        if (weights.reduce((s, v) => s + v, 0) === 0) {
-          weights[0] = weights[1] = weights[2] = weights[3] = 1;
-          wPlus.value = wMinus.value = wMul.value = wDiv.value = 1;
+        // gather params and preview single page using current params (preview uses count per page)
+        function gatherParamsAndGenerate(showPreview = true) {
+          const countPerPage = Math.max(1, Math.min(100, parseInt(countInput.value) || 100));
+          countInput.value = countPerPage;
+          const weights = [
+            Math.max(0, parseInt(wPlus.value) || 0),
+            Math.max(0, parseInt(wMinus.value) || 0),
+            Math.max(0, parseInt(wMul.value) || 0),
+            Math.max(0, parseInt(wDiv.value) || 0)
+          ];
+          if (weights.reduce((s, v) => s + v, 0) === 0) {
+            weights[0] = weights[1] = weights[2] = weights[3] = 1;
+            wPlus.value = wMinus.value = wMul.value = wDiv.value = 1;
+          }
+          const limit = (limitPreset.value === 'custom') ? Math.max(1, Math.min(1000, parseInt(customLimit.value) || 100)) : parseInt(limitPreset.value, 10);
+          customLimit.value = limit;
+          const cols = Math.max(1, Math.min(4, parseInt(columnsSelect.value) || 4));
+          const opts = {
+            allowMixed: allowMixed.checked,
+            allowParen: allowParen.checked,
+            nineTable: nineTable.checked
+          };
+          const problems = generateProblems(countPerPage, weights, limit, opts);
+          if (showPreview) renderPreview(problems, cols);
+          return { problems, cols, weights, limit, opts, countPerPage };
         }
-        const limit = (limitPreset.value === 'custom') ? Math.max(1, Math.min(1000, parseInt(customLimit.value) || 100)) : parseInt(limitPreset.value, 10);
-        customLimit.value = limit;
-        const cols = Math.max(1, Math.min(4, parseInt(columnsSelect.value) || 4));
-        const opts = {
-          allowMixed: allowMixed.checked,
-          allowParen: allowParen.checked,
-          nineTable: nineTable.checked
-        };
-        const problems = generateProblems(countPerPage, weights, limit, opts);
-        if (showPreview) renderPreview(problems, cols);
-        return { problems, cols, weights, limit, opts, countPerPage };
-      }
-
-      genBtn.addEventListener('click', function () {
-        gatherParamsAndGenerate(true);
-      });
-
-      exportBtn.addEventListener('click', async function () {
-        const title = titleInput.value.trim() || '口算大挑战';
-        const pages = Math.max(1, Math.min(100, parseInt(pagesInput.value) || 10));
-        // Gather params but do not preview regeneration for all pages
-        const { cols, weights, limit, opts, countPerPage } = gatherParamsAndGenerate(false);
-        try {
-          await exportPDFMulti(title, countPerPage, cols, weights, limit, opts, pages);
-        } catch (err) {
-          alert('导出 PDF 时出错：' + (err && err.message ? err.message : String(err)));
-          console.error(err);
-          printArea.style.display = 'none';
+        function updateExportBtnLabel() {
+          const pages = Math.max(1, Math.min(100, parseInt(pagesInput.value) || 1));
+          exportBtn.textContent = `导出 PDF（${pages}页，每页独立一套）`;
         }
-      });
+        pagesInput.addEventListener('input', updateExportBtnLabel);
+        genBtn.addEventListener('click', function () {
+          gatherParamsAndGenerate(true);
+        });
 
-      limitPreset.addEventListener('change', () => {
-        if (limitPreset.value !== 'custom') {
-          customLimit.value = limitPreset.value;
-        }
-      });
+        exportBtn.addEventListener('click', async function () {
+          const title = titleInput.value.trim() || '口算大挑战';
+          const pages = Math.max(1, Math.min(100, parseInt(pagesInput.value) || 10));
+          // Gather params but do not preview regeneration for all pages
+          const { cols, weights, limit, opts, countPerPage } = gatherParamsAndGenerate(false);
+          try {
+            await exportPDFMulti(title, countPerPage, cols, weights, limit, opts, pages);
+          } catch (err) {
+            alert('导出 PDF 时出错：' + (err && err.message ? err.message : String(err)));
+            console.error(err);
+            printArea.style.display = 'none';
+          }
+        });
 
-      document.addEventListener('DOMContentLoaded', () => {
-        gatherParamsAndGenerate(true);
-      });
+        limitPreset.addEventListener('change', () => {
+          if (limitPreset.value !== 'custom') {
+            customLimit.value = limitPreset.value;
+          }
+        });
 
-    })();
-  </script>
+        document.addEventListener('DOMContentLoaded', () => {
+          gatherParamsAndGenerate(true);
+          updateExportBtnLabel();
+        });
+
+      })();
+    </script>
 </body>
 
 </html>
