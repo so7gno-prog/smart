@@ -193,7 +193,7 @@
       width: 100%;
       text-align: left;
       /* left align problem text so number and content are left-aligned */
-      font-size: 22px;
+      font-size: 20px;
       display: flex;
       align-items: center;
       gap: 5px;
@@ -203,13 +203,14 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 30px;
-      height: 30px;
+      min-width: 28px;
+      height: 28px;
       border-radius: 50%;
       border: 1px solid #000;
-      font-size: 16px;
+      font-size: 14px;
       padding: 0px;
       margin-right: 6px;
+      margin-left: 1px;
       vertical-align: middle;
       box-sizing: border-box;
       flex: 0 0 26px;
@@ -768,8 +769,8 @@
           const margin = 22; // mm
           const pdfW = pageW - margin * 2;
           const pdfH = pageH - margin * 2;
-          const targetW_mm = pdfW * 1.2; // want content to occupy 90% of printable width
-          const targetH_mm = pdfH * 1.5; // and height
+          const targetW_mm = pdfW * 1.1; // want content to occupy 90% of printable width
+          const targetH_mm = pdfH * 1.3; // and height
           const cssPxPerMm = 96 / 25.4; // CSS px per mm (assumption: 96dpi)
 
           for (let pIndex = 0; pIndex < pages; pIndex++) {
