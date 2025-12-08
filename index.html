@@ -592,7 +592,7 @@
                 if (!resFinal.ok) continue;
                 if (resFinal.val > limit) continue;
 
-                return `（${A} ${op1} ${B}） ${op2} ${C} =`;
+                return `( ${A} ${op1} ${B} ) ${op2} ${C} =`;
 
               } else if (pat === 'R') {
                 // A op1 (B op2 C)
@@ -644,7 +644,7 @@
                 if (!finalRes.ok) continue;
                 if (finalRes.val > limit) continue;
 
-                return `${A} ${op1} (${B} ${op2} ${C}) =`;
+                return `${A} ${op1} ( ${B} ${op2} ${C} ) =`;
               } else {
                 // No parentheses: evaluate left-to-right ((A op1 B) op2 C)
                 if (op1 === '÷') {
