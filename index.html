@@ -237,7 +237,7 @@
       <div class="three">
         <div>
           <label for="title">标题</label>
-          <input id="title" type="text" placeholder="例如：期末复习卷（2025）" value="口算大挑战" />
+          <input id="title" type="text" placeholder="例如：期末复习卷（2025）" value="口算大挑战(6分钟挑战）" />
         </div>
 
         <div>
@@ -308,7 +308,7 @@
           </div>
 
           <div>
-            <label for="pages">导出页数（每页为独立一套题，默认 4）</label>
+            <label for="pages">导出页数（默认 4，可修改）</label>
             <input id="pages" type="number" min="1" max="100" value="4" />
           </div>
         </div>
@@ -592,7 +592,7 @@
                 if (!resFinal.ok) continue;
                 if (resFinal.val > limit) continue;
 
-                return `( ${A} ${op1} ${B} ) ${op2} ${C} =`;
+                return `（${A} ${op1} ${B}） ${op2} ${C} =`;
 
               } else if (pat === 'R') {
                 // A op1 (B op2 C)
@@ -644,7 +644,7 @@
                 if (!finalRes.ok) continue;
                 if (finalRes.val > limit) continue;
 
-                return `${A} ${op1} ( ${B} ${op2} ${C} ) =`;
+                return `${A} ${op1} （${B} ${op2} ${C}） =`;
               } else {
                 // No parentheses: evaluate left-to-right ((A op1 B) op2 C)
                 if (op1 === '÷') {
@@ -809,7 +809,7 @@
               const start = c * perCol;
               const end = Math.min(start + perCol, problems.length);
               for (let i = start; i < end; i++) {
-                const globalIndex = pIndex * countPerPage + i + 1; // continuous across pages
+                const globalIndex =  i + 1; // continuous across pages
                 const p = document.createElement('div');
                 p.className = 'printProblem';
                 const circ = document.createElement('span');
