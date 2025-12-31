@@ -301,6 +301,51 @@
             height: 8px;
         }
 
+        /* 登录弹窗样式 */
+        .modal-overlay {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.848);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .modal-dialog {
+            background: #fff;
+            padding: 18px;
+            border-radius: 8px;
+            width: 420px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .modal-dialog h3 {
+            margin: 0 0 12px 0;
+            font-size: 18px;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 8px;
+            top: 6px;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 16px;
+            color: #666;
+        }
+
+        .modal-row { display:flex; gap:8px; align-items:center; margin-bottom:10px; }
+        .modal-row label { width:80px; margin:0; }
+        .modal-row input { flex:1; }
+
         #slider .noUi-connect {
             background: #367cde;
         }
@@ -341,6 +386,24 @@
 </head>
 
 <body>
+    <!-- 登录弹窗（页面加载时作为前置弹窗） -->
+    <div id="loginModal" class="modal-overlay" role="dialog" aria-modal="true">
+        <div class="modal-dialog">
+            <div class="modal-close" id="loginClose" title="关闭">✕</div>
+            <h3>请输入学号与姓名</h3>
+            <div class="modal-row">
+                <label for="loginStudentId">学号</label>
+                <input id="loginStudentId" type="text" placeholder="例如：1" />
+            </div>
+            <div class="modal-row">
+                <label for="loginStudentName">姓名</label>
+                <input id="loginStudentName" type="text" placeholder="例如：张三" />
+            </div>
+            <div style="text-align:right; margin-top:8px;">
+                <button id="loginConfirm">确认</button>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <h1>小学数学题生成器（导出 PDF）</h1>
         <div class="controls">
@@ -424,6 +487,18 @@
                 <div>
                     <label for="paperDate">试卷日期（可选）</label>
                     <input id="paperDate" type="date" />
+                </div>
+                <div class="two">
+                    <div>
+                        <label><input id="allowRemainder" type="checkbox" /> 包含有余数的除法</label>
+                    </div>
+                    <div>
+                        <label for="remainderRatio">比例</label>
+                    </div>
+                    <div class="two">
+                        <input id="remainderRatio" type="range" min="0" max="100" value="50" />
+                        <span id="remainderRatioValue" class="slider-value">50</span>
+                    </div>
                 </div>
             </div>
             <div class="full">
@@ -523,12 +598,22 @@
             const multiplierRangeValue = qs('multiplierRangeValue');
             const printArea = qs('printArea');
             const paperDateInput = qs('paperDate');
+            const allowRemainder = qs('allowRemainder');
+            const remainderRatio = qs('remainderRatio');
+            const remainderRatioValue = qs('remainderRatioValue');
             const pagesInput = qs('pages');
 
             // Update slider value display
             mixedRatio.addEventListener('input', function () {
                 mixedRatioValue.textContent = (this.value / 100).toFixed(2);
             });
+
+            // Update remainderRatio display
+            if (remainderRatio && remainderRatioValue) {
+                remainderRatio.addEventListener('input', function () {
+                    remainderRatioValue.textContent = this.value;
+                });
+            }
 
             // Update opRatio slider value display
             opRatio.addEventListener('input', function () {
@@ -689,9 +774,24 @@
                         const b = randInt(minMul, Math.max(minMul, Math.min(effectiveMaxMultiplier, bMax)));
                         return { text: `${a} × ${b} =`, op: '×' };
                     }
-                } else { // division: ensure integer quotient and operands >= MIN_OPERAND
-                    const { dividend, divisor } = pickDivAndQuot(limit, allowNine, minMul, maxMul);
-                    return { text: `${dividend} ÷ ${divisor} =`, op: '÷' };
+                } else { // division
+                    // Check whether we should allow remainder divisions for simple problems
+                    const allowRem = allowRemainder && allowRemainder.checked;
+                    const remRatio = remainderRatio ? (parseFloat(remainderRatio.value) || 0) / 100 : 0;
+                    if (allowRem && Math.random() < remRatio) {
+                        // produce a division that may have a remainder: dividend = q * b + r (r in [1, b-1])
+                        const b = randInt(minMul, maxMul);
+                        // choose quotient q so dividend not huge and <= limit if possible
+                        const qMax = Math.max(minMul, Math.floor(limit / Math.max(1, b)));
+                        const q = randInt(minMul, Math.max(minMul, Math.min(qMax, maxMul)));
+                        const r = randInt(1, Math.max(1, b - 1));
+                        const dividend = q * b + r;
+                        return { text: `${dividend} ÷ ${b} =`, op: '÷' };
+                    } else {
+                        // integer division as before
+                        const { dividend, divisor } = pickDivAndQuot(limit, allowNine, minMul, maxMul);
+                        return { text: `${dividend} ÷ ${divisor} =`, op: '÷' };
+                    }
                 }
             }
 
@@ -1235,6 +1335,39 @@
                     // ignore
                 }
             }
+
+            // 登录弹窗逻辑：将学号-姓名写入主页面姓名栏，或关闭弹窗直接展示主界面
+            (function setupLoginModal() {
+                const loginModal = document.getElementById('loginModal');
+                const loginClose = document.getElementById('loginClose');
+                const loginConfirm = document.getElementById('loginConfirm');
+                const loginStudentId = document.getElementById('loginStudentId');
+                const loginStudentName = document.getElementById('loginStudentName');
+
+                function hideModal() {
+                    if (loginModal) loginModal.style.display = 'none';
+                }
+
+                // Close without filling
+                if (loginClose) loginClose.addEventListener('click', function () { hideModal(); });
+
+                // Confirm: fill main studentName input as "学号-姓名"
+                if (loginConfirm) loginConfirm.addEventListener('click', function () {
+                    const sid = (loginStudentId && loginStudentId.value.trim()) || '';
+                    const sname = (loginStudentName && loginStudentName.value.trim()) || '';
+                    if (sname || sid) {
+                        const combined = sid ? (sname ? `${sid}-${sname}` : `${sid}`) : sname;
+                        if (studentNameInput) studentNameInput.value = combined;
+                    }
+                    hideModal();
+                });
+
+                // Show modal on load; focus first input
+                if (loginModal) {
+                    loginModal.style.display = 'flex';
+                    if (loginStudentId) loginStudentId.focus();
+                }
+            })();
 
             previewProblems();
         })();
